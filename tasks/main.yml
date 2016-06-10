@@ -1,7 +1,7 @@
 ---
 - name: Creating groups
   group:
-    gid: "{{ item.gid|default('') }}"
+    gid: "{{ item.gid }}"
     name: "{{ item.name }}"
   with_flattened:
     - "{{ users_groups }}"
@@ -12,7 +12,7 @@
 - name: Per-user group creation
   group:
     name: "{{ item.username }}"
-    gid: "{{ item.gid }}"
+    gid: "{{ item.uid }}"
   with_flattened:
     - "{{ users_users }}"
     - "{{ users_group_users }}"

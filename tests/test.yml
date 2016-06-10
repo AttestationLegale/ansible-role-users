@@ -5,19 +5,19 @@
   vars:
     - users_users:
       - username: toto
-        uid: 10000
+        uid: 1000
         name: Toto
         groups: ['grp1']
         ssh_key:
           - "ssh-rsa AAAh.... toto@"
           - "ssh-rsa AAAi.... toto@"
       - username: titi
-        uid: 10001
+        uid: 1001
         name: Titi
         group: grp1
         home: /srv/titi
       - username: tata
-        uid: 10002
+        uid: 1002
         name: Tata
         group: grp2
         home: /srv/tata
