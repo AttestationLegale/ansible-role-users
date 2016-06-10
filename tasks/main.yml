@@ -54,7 +54,6 @@
   with_subelements:
     - "{{ all_users.results|map(attribute='item')|list }}"
     - ssh_key
-  when: item.ssh_key is defined
   tags: ['users','configuration']
 
 - name: Deleted user removal
