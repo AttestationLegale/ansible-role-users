@@ -45,16 +45,14 @@
 
 - name: Debug
   debug:
-    var: all_users.results
+    var: all_users.results.item
 
 - name: SSH keys
   authorized_key:
     user: "{{ item.username }}"
     key: "{{ item.ssh_key }}"
-  with_flattened:
-    - "{{ users_users }}"
-    - "{{ users_group_users }}"
-    - "{{ users_host_users }}"
+  with_items:
+    - "{{ all_users.results|map(attribute='item')|list }}"
   when: item.ssh_key is defined
   tags: ['users','configuration']
 
