@@ -49,8 +49,8 @@
 
 - name: SSH keys
   authorized_key:
-    user: "{{ item.username }}"
-    key: "{{ item.ssh_key }}"
+    user: "{{ item.1.username }}"
+    key: "{{ item.1.ssh_key }}"
   with_subelements:
     - "{{ all_users.results|map(attribute='item')|list }}"
     - ssh_key
