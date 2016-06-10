@@ -3,10 +3,27 @@
   remote_user: root
 
   vars:
-    - users:
-      - username: "foo"
-        name: Foo Barrington
+    - users_users:
+      - username: toto
+        name: Toto
         groups: ['wheel','systemd-journal']
+      - username: titi
+        name: Titi
+        group: grp1
+        home: /srv/titi
+      - username: tata
+        name: Tata
+        group: grp2
+        home: /srv/tata
+    - groups:
+      - name: grp1
+        gid: 10000
+      - name: grp2
+        gid: 10001
+      - name: grp3
+        gid: 10002
+    - users_suers_deleted:
+      - name: tata
 
   roles:
     - ansible-role-users
