@@ -15,14 +15,14 @@
         name: Tata
         group: grp2
         home: /srv/tata
-    - groups:
+    - users_groups:
       - name: grp1
         gid: 10000
       - name: grp2
         gid: 10001
       - name: grp3
         gid: 10002
-    - users_suers_deleted:
+    - users_users_deleted:
       - name: tata
 
   roles:
