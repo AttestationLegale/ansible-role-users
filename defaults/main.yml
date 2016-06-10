@@ -1,0 +1,9 @@
+---
+per_user_group: true
+default_group: users
+default_shell: /bin/bash
+create_homedirs: true
+
+# Lists of users to create and delete
+users_deleted: []
+groups: []
