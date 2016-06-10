@@ -6,7 +6,7 @@
     - users_users:
       - username: toto
         name: Toto
-        groups: ['wheel','systemd-journal']
+        groups: ['grp1']
       - username: titi
         name: Titi
         group: grp1
