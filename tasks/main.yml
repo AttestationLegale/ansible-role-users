@@ -26,13 +26,15 @@
     groups: "{{ item.groups | default([]) | join(',') }}"
     shell: "{{ item.shell|default(users_default_shell) }}"
     comment: "{{ item.comment|default(item.name) }}"
-    {% if item.uid is defined %}
     uid: "{{ item.uid }}"
-    {% endif %}
     createhome: "{{ 'yes' if users_create_homedirs else 'no' }}"
     home: "{{ item.home|default(users_default_homebase~'/'~item.username)}}"
     remove: "{{ item.remove|default('yes') }}"
     skeleton: "{{ item.skeleton|default(users_default_skel) }}"
+    append: "{{ item.append | default(false) }}"
+    password: "{{ item.password | default('*') }}"
+    update_password: "{{ item.update_password | default('always') }}"
+    system: "{{ item.system | default(false) }}"
   with_flattened:
     - "{{ users_users }}"
     - "{{ users_group_users }}"
