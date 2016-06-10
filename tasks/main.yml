@@ -23,14 +23,16 @@
   user:
     name: "{{ item.username }}"
     group: "{{ item.username if users_per_user_group else users_default_group }}"
-    groups: "{{ item.groups | join(',') }}"
+    groups: "{{ item.groups | default([]) | join(',') }}"
     shell: "{{ item.shell|default(users_default_shell) }}"
-    comment: "{{ item.name }}"
-    uid: "{{ item.uid|default(None)}}"
+    comment: "{{ item.comment|default(item.name) }}"
+    {% if item.uid is defined %}
+    uid: "{{ item.uid }}"
+    {% endif %}
     createhome: "{{ 'yes' if users_create_homedirs else 'no' }}"
-    home: "{{ item.home|default('')}}"
+    home: "{{ item.home|default(users_default_homebase~'/'~item.username)}}"
     remove: "{{ item.remove|default('yes') }}"
-    skeleton: "{{ item.skeleton|default('') }}"
+    skeleton: "{{ item.skeleton|default(users_default_skel) }}"
   with_flattened:
     - "{{ users_users }}"
     - "{{ users_group_users }}"

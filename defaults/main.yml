@@ -2,7 +2,9 @@
 users_per_user_group: true
 users_default_group: users
 users_default_shell: /bin/bash
+users_default_homebase: /home
 users_create_homedirs: true
+users_default_skel: /etc/skel
 
 users_users: []
 users_group_users: []
