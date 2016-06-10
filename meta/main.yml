@@ -4,7 +4,7 @@ galaxy_info:
   company: ALG
   description: User and group management role
   license: "license (BSD, MIT)"
-  min_ansible_version: 1.3
+  min_ansible_version: 2.0
   platforms:
   - name: EL
     versions:

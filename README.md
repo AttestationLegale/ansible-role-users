@@ -33,9 +33,7 @@ None
           name: Foo Barrington
           groups: ['wheel','systemd-journal']
           uid: 1001
-          ssh_key:
-            - "ssh-rsa AAAAA.... foo@machine"
-            - "ssh-rsa AAAAB.... foo2@machine"
+          ssh_key: "ssh-rsa AAAAB.... foo2@machine"
     users_deleted:
       - username: bar
 ```

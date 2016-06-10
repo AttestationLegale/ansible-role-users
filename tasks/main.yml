@@ -3,14 +3,20 @@
   group:
     gid: "{{ item.gid|default('') }}"
     name: "{{ item.name }}"
-  with_items: groups
+  with_flattened:
+    - "{{ groups }}"
+    - "{{ group_groups }}"
+    - "{{ host_groups }}"
   tags: ['groups','configuration']
 
 - name: Per-user group creation
   group:
     name: "{{ item.username }}"
     gid: "{{ item.uid }}"
-  with_items: users
+  with_flattened:
+    - "{{ users }}"
+    - "{{ group_users }}"
+    - "{{ host_users }}"
   when: per_user_group
   tags: ['users','groups','configuration']
 
@@ -23,29 +29,43 @@
     comment: "{{ item.name }}"
     uid: "{{ item.uid|default('')}}"
     createhome: "{{ 'yes' if create_homedirs else 'no' }}"
-  with_items: users
+    home: "{{ item.home|default('')}}"
+    remove: "{{ item.remove|default('yes') }}"
+    skeleton: "{{ item.skeleton|default('') }}"
+  with_flattened:
+    - "{{ users }}"
+    - "{{ group_users }}"
+    - "{{ host_users }}"
   tags: ['users','configuration']
 
 - name: SSH keys
   authorized_key:
-    user: "{{ item.0.username }}"
-    key: "{{ item.1 }}"
-  with_subelements:
-    - users
-    - ssh_key
+    user: "{{ item.username }}"
+    key: "{{ item.ssh_key }}"
+  with_flattened:
+    - "{{ users }}"
+    - "{{ group_users }}"
+    - "{{ host_users }}"
+  when: item.ssh_key is defined
   tags: ['users','configuration']
 
 - name: Deleted user removal
   user:
     name: "{{ item.username }}"
     state: absent
-  with_items: users_deleted
+  with_flattened:
+    - "{{ users_deleted }}"
+    - "{{ group_users_deleted }}"
+    - "{{ host_users_deleted }}"
   tags: ['users','configuration']
 
 - name: Deleted per-user group removal
   group:
     name: "{{ item.username }}"
     state: absent
-  with_items: users_deleted
+  with_flattened:
+    - "{{ users_deleted }}"
+    - "{{ group_users_deleted }}"
+    - "{{ host_users_deleted }}"
   when: per_user_group
   tags: ['users','groups','configuration']
