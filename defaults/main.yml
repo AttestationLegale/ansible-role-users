@@ -1,13 +1,17 @@
 ---
-per_user_group: true
-default_group: users
-default_shell: /bin/bash
-create_homedirs: true
+users_per_user_group: true
+users_default_group: users
+users_default_shell: /bin/bash
+users_create_homedirs: true
 
-users_deleted: []
-group_users_deleted: []
-host_users_deleted: []
+users_users: []
+users_group_users: []
+users_host_users: []
 
-groups: []
-group_groups: []
-host_groups: []
+users_users_deleted: []
+users_group_users_deleted: []
+users_host_users_deleted: []
+
+users_groups: []
+users_group_groups: []
+users_host_groups: []
