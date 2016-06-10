@@ -51,8 +51,9 @@
   authorized_key:
     user: "{{ item.username }}"
     key: "{{ item.ssh_key }}"
-  with_items:
+  with_subelements:
     - "{{ all_users.results|map(attribute='item')|list }}"
+    - ssh_key
   when: item.ssh_key is defined
   tags: ['users','configuration']
 
