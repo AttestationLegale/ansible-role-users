@@ -4,6 +4,10 @@ default_group: users
 default_shell: /bin/bash
 create_homedirs: true
 
+users: []
+group_users: []
+host_users: []
+
 users_deleted: []
 group_users_deleted: []
 host_users_deleted: []
