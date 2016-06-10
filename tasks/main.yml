@@ -26,7 +26,7 @@
     groups: "{{ item.groups | join(',') }}"
     shell: "{{ item.shell|default(users_default_shell) }}"
     comment: "{{ item.name }}"
-    uid: "{{ item.uid|default('')}}"
+    uid: "{{ item.uid|default(None)}}"
     createhome: "{{ 'yes' if users_create_homedirs else 'no' }}"
     home: "{{ item.home|default('')}}"
     remove: "{{ item.remove|default('yes') }}"
