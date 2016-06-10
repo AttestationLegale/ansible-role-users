@@ -6,7 +6,7 @@ users_create_homedirs: true
 
 users_users: []
 users_group_users: []
-host_users: []
+users_host_users: []
 
 users_users_deleted: []
 users_group_users_deleted: []
