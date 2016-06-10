@@ -12,6 +12,7 @@
 - name: Per-user group creation
   group:
     name: "{{ item.username }}"
+    gid: "{{ item.gid }}"
   with_flattened:
     - "{{ users_users }}"
     - "{{ users_group_users }}"
