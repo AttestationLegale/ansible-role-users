@@ -52,8 +52,8 @@
     user: "{{ item.username }}"
     key: "{{ item.ssh_key }}"
   with_subelements:
-    - "{{ dict(all_users.results|map(attribute='item')) }}"
-    - 'ssh_key'
+    - "{{ all_users.results|map(attribute='item')|list }}"
+    - ssh_key
     - skip_missing: True
   tags: ['users','configuration']
 
