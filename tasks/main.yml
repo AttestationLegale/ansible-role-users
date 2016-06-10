@@ -40,7 +40,12 @@
     - "{{ users_users }}"
     - "{{ users_group_users }}"
     - "{{ users_host_users }}"
+  register: all_users
   tags: ['users','configuration']
+
+- name: Debug
+  debug:
+    var: all_users
 
 - name: SSH keys
   authorized_key:
