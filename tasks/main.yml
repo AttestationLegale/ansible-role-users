@@ -53,7 +53,8 @@
     key: "{{ item.ssh_key }}"
   with_subelements:
     - "{{ all_users.results|map(attribute='item')|list }}"
-    - ssh_key
+    - 'ssh_key'
+    - skip_missing: True
   tags: ['users','configuration']
 
 - name: Deleted user removal
