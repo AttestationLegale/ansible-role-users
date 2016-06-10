@@ -45,7 +45,7 @@
 
 - name: Debug
   debug:
-    var: all_users
+    var: all_users.results
 
 - name: SSH keys
   authorized_key:
