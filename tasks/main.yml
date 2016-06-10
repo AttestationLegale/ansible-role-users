@@ -4,9 +4,9 @@
     gid: "{{ item.gid|default('') }}"
     name: "{{ item.name }}"
   with_flattened:
-    - "{{ groups }}"
-    - "{{ group_groups }}"
-    - "{{ host_groups }}"
+    - "{{ users_groups }}"
+    - "{{ users_group_groups }}"
+    - "{{ users_host_groups }}"
   tags: ['groups','configuration']
 
 - name: Per-user group creation
@@ -14,28 +14,28 @@
     name: "{{ item.username }}"
     gid: "{{ item.uid }}"
   with_flattened:
-    - "{{ users }}"
-    - "{{ group_users }}"
-    - "{{ host_users }}"
-  when: per_user_group
+    - "{{ users_users }}"
+    - "{{ users_group_users }}"
+    - "{{ users_host_users }}"
+  when: users_per_user_group
   tags: ['users','groups','configuration']
 
 - name: User creation
   user:
     name: "{{ item.username }}"
-    group: "{{ item.username if per_user_group else default_group }}"
+    group: "{{ item.username if users_per_user_group else users_default_group }}"
     groups: "{{ item.groups | join(',') }}"
-    shell: "{{ item.shell|default(default_shell) }}"
+    shell: "{{ item.shell|default(users_default_shell) }}"
     comment: "{{ item.name }}"
     uid: "{{ item.uid|default('')}}"
-    createhome: "{{ 'yes' if create_homedirs else 'no' }}"
+    createhome: "{{ 'yes' if users_create_homedirs else 'no' }}"
     home: "{{ item.home|default('')}}"
     remove: "{{ item.remove|default('yes') }}"
     skeleton: "{{ item.skeleton|default('') }}"
   with_flattened:
-    - "{{ users }}"
-    - "{{ group_users }}"
-    - "{{ host_users }}"
+    - "{{ users_users }}"
+    - "{{ users_group_users }}"
+    - "{{ users_host_users }}"
   tags: ['users','configuration']
 
 - name: SSH keys
@@ -43,9 +43,9 @@
     user: "{{ item.username }}"
     key: "{{ item.ssh_key }}"
   with_flattened:
-    - "{{ users }}"
-    - "{{ group_users }}"
-    - "{{ host_users }}"
+    - "{{ users_users }}"
+    - "{{ users_group_users }}"
+    - "{{ users_host_users }}"
   when: item.ssh_key is defined
   tags: ['users','configuration']
 
@@ -54,9 +54,9 @@
     name: "{{ item.username }}"
     state: absent
   with_flattened:
-    - "{{ users_deleted }}"
-    - "{{ group_users_deleted }}"
-    - "{{ host_users_deleted }}"
+    - "{{ users_users_deleted }}"
+    - "{{ users_group_users_deleted }}"
+    - "{{ users_host_users_deleted }}"
   tags: ['users','configuration']
 
 - name: Deleted per-user group removal
@@ -64,8 +64,8 @@
     name: "{{ item.username }}"
     state: absent
   with_flattened:
-    - "{{ users_deleted }}"
-    - "{{ group_users_deleted }}"
-    - "{{ host_users_deleted }}"
-  when: per_user_group
+    - "{{ users_users_deleted }}"
+    - "{{ users_group_users_deleted }}"
+    - "{{ users_host_users_deleted }}"
+  when: users_per_user_group
   tags: ['users','groups','configuration']
