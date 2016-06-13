@@ -1,7 +1,7 @@
 ---
 - name: Creating groups
   group:
-    gid: "{{ item.gid|default('') }}"
+    gid: "{{ item.gid }}"
     name: "{{ item.name }}"
   with_flattened:
     - "{{ users_groups }}"
@@ -24,29 +24,33 @@
   user:
     name: "{{ item.username }}"
     group: "{{ item.username if users_per_user_group else users_default_group }}"
-    groups: "{{ item.groups | join(',') }}"
+    groups: "{{ item.groups | default([]) | join(',') }}"
     shell: "{{ item.shell|default(users_default_shell) }}"
-    comment: "{{ item.name }}"
-    uid: "{{ item.uid|default('')}}"
+    comment: "{{ item.comment|default(item.name) }}"
+    uid: "{{ item.uid }}"
     createhome: "{{ 'yes' if users_create_homedirs else 'no' }}"
-    home: "{{ item.home|default('')}}"
+    home: "{{ item.home|default(users_default_homebase~'/'~item.username)}}"
     remove: "{{ item.remove|default('yes') }}"
-    skeleton: "{{ item.skeleton|default('') }}"
+    skeleton: "{{ item.skeleton|default(users_default_skel) }}"
+    append: "{{ item.append | default(false) }}"
+    password: "{{ item.password | default('*') }}"
+    update_password: "{{ item.update_password | default('always') }}"
+    system: "{{ item.system | default(false) }}"
   with_flattened:
     - "{{ users_users }}"
     - "{{ users_group_users }}"
     - "{{ users_host_users }}"
+  register: all_users
   tags: ['users','configuration']
 
 - name: SSH keys
   authorized_key:
-    user: "{{ item.username }}"
-    key: "{{ item.ssh_key }}"
-  with_flattened:
-    - "{{ users_users }}"
-    - "{{ users_group_users }}"
-    - "{{ users_host_users }}"
-  when: item.ssh_key is defined
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+  with_subelements:
+    - "{{ all_users.results|map(attribute='item')|list }}"
+    - ssh_key
+    - skip_missing: True
   tags: ['users','configuration']
 
 - name: Deleted user removal
