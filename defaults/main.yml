@@ -6,14 +6,26 @@ users_default_homebase: /home
 users_create_homedirs: true
 users_default_skel: /etc/skel
 
+### Users to create
+# All hosts level
 users_users: []
+# Group level
 users_group_users: []
+# Hosts level
 users_host_users: []
 
+### Users to delete
+# All hosts level
 users_users_deleted: []
+# Group level
 users_group_users_deleted: []
+# Host level
 users_host_users_deleted: []
 
+### Groups to create
+# All hosts level
 users_groups: []
+# Group level
 users_group_groups: []
+# Host level
 users_host_groups: []

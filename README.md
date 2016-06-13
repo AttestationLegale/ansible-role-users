@@ -12,9 +12,9 @@ None
 
 For a complete list of variables, see `default/main.yml`.
 
-    users
-    groups
-    users_deleted
+    users_users
+    users_groups
+    users_users_deleted
 
 ## Dependencies
 
@@ -28,7 +28,7 @@ None
     roles:
       - users
     vars:
-      users:
+      users_users:
         - username: foo
           name: Foo Barrington
           groups: ['wheel','systemd-journal']
