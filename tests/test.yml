@@ -3,6 +3,8 @@
   remote_user: root
 
   vars:
+    - user_alt_homebase:
+      - path: /srv/symfony
     - users_users:
       - username: toto
         uid: 10000
@@ -15,7 +17,7 @@
         uid: 10001
         name: Titi
         group: grp1
-        home: /srv/titi
+        home: /srv/symfony/titi
       - username: tata
         uid: 10002
         name: Tata

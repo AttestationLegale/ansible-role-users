@@ -37,6 +37,13 @@ script:
     && (test $_GID -eq 20000 && echo 'Group grp1 exists and gid = 20000 - pass' && exit 0)
     || (echo 'Group grp1 does not exist or gid != 20000 - fail' && exit 1)
 
+  # Check if alternative home base /srv/symfony was created.
+  - >
+    ls -dl /srv/symfony
+    | awk '{ print $1; }' | grep -q "^drwxr-xr-x$"
+    && (echo '/srv/symfony mode = 0755 - pass' && exit 0)
+    || (echo '/srv/symfony mode != 0755 - fail' && exit 1)
+
   # Check if user toto was created with expected uid.
   - >
     _UID=$(grep "^toto:" /etc/passwd | awk -F":" '{print $3;}')
