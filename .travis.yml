@@ -52,9 +52,9 @@ script:
 
   # Check if user tata was removed.
   - >
-    _UID=$(grep "^toto:" /etc/passwd | awk -F":" '{print $3;}')
-    && (test $_UID -eq 10000 && echo 'User toto exists and uid = 10000 - pass' && exit 0)
-    || (echo 'User toto does not exist or uid != 10000 - fail' && exit 1)
+    id tata > /dev/null 2>&1
+    && (echo 'User tata was not removed - fail' && exit 1)
+    || (echo 'User tata was succesfully removed - pass' && exit 0)
 
 #notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
