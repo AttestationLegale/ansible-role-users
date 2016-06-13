@@ -3,7 +3,7 @@
   remote_user: root
 
   vars:
-    - user_alt_homebase:
+    - users_alt_homebase:
       - path: /srv/symfony
     - users_users:
       - username: toto
