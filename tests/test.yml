@@ -29,7 +29,7 @@
       - name: grp3
         gid: 20002
     - users_users_deleted:
-      - name: tata
+      - username: tata
 
   roles:
     - ansible-role-users

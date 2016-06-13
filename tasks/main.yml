@@ -43,10 +43,6 @@
   register: all_users
   tags: ['users','configuration']
 
-- name: Debug
-  debug:
-    var: all_users.results
-
 - name: SSH keys
   authorized_key:
     user: "{{ item.0.username }}"
