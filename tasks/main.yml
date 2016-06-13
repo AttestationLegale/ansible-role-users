@@ -1,4 +1,17 @@
 ---
+- name: Ensure Alternative home bases exist
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ item.owner | default(users_default_homebase_owner) }}"
+    group: "{{ item.group | default(users_default_homebase_group) }}"
+    mode: "{{ item.mode | default(users_default_homebase_mode) }}"
+  with_flattened:
+    - "{{ users_alt_homebase }}"
+    - "{{ users_group_alt_homebase }}"
+    - "{{ users_host_alt_homebase }}"
+  tags: ['users','configuration']
+
 - name: Creating groups
   group:
     gid: "{{ item.gid }}"

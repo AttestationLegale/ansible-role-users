@@ -3,8 +3,19 @@ users_per_user_group: true
 users_default_group: users
 users_default_shell: /bin/bash
 users_default_homebase: /home
+users_default_homebase_owner: "root"
+users_default_homebase_group: "root"
+users_default_homebase_mode: "0755"
 users_create_homedirs: true
 users_default_skel: /etc/skel
+
+### Alternative home bases
+# All hosts level
+users_alt_homebase: []
+# Group level
+users_group_alt_homebase: []
+# Hosts level
+users_host_alt_homebase: []
 
 ### Users to create
 # All hosts level
