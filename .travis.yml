@@ -31,12 +31,24 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-#  # Check if TCP port 9123 is open.
-#  - >
-#    sudo iptables -L -n
-#    | grep -q "ACCEPT.*dpt:9123"
-#    && (echo 'Port 9123 is open - pass' && exit 0)
-#    || (echo 'Port 9123 is not open - fail' && exit 1)
+  # Check if group grp1 was created with expected gid.
+  - >
+    GID=$(grep -q "^grp1:" /etc/group | awk -F":" '{print $3;}')
+    && ([ $GID -eq 20000 ] && echo 'Group grp1 exists and gid = 20000 - pass' && exit 0)
+    || (echo 'Group grp1 does not exist or gid != 20000 - fail' && exit 1)
+
+  # Check if user toto was created with expected uid.
+  - >
+    UID=$(grep -q "^toto:" /etc/passwd | awk -F":" '{print $3;}')
+    && ([ $UID -eq 10000 ] && echo 'User toto exists and uid = 10000 - pass' && exit 0)
+    || (echo 'User toto does not exist or uid != 10000 - fail' && exit 1)
+
+  # Check if user toto primary group is toto with gid = uid (10000).
+  - >
+    UID=$(grep -q "^toto:" /etc/passwd | awk -F":" '{print $3;}');
+    GID=$(grep -q "^toto:" /etc/passwd | awk -F":" '{print $4;}')
+    && ([ $UID -eq $GID -a $GID -eq 10000 ] && echo 'User toto primary group is toto and gid = uid = 10000 - pass' && exit 0)
+    || (echo 'User toto primary group is not toto or gid != 10000 - fail' && exit 1)
 
 #notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
