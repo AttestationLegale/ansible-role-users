@@ -60,7 +60,7 @@ script:
   # Check if user titi primary group is grp1.
   - >
     _GID=$(grep "^titi:" /etc/passwd | awk -F":" '{print $4;}')
-    && ($_GID -eq 20000 && echo 'User titi primary group = grp1 - pass' && exit 0)
+    && (test $_GID -eq 20000 && echo 'User titi primary group = grp1 - pass' && exit 0)
     || (echo 'User titi primary group != grp1 - fail' && exit 1)
 
   # Check if user tata was removed.
