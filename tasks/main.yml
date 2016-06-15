@@ -36,7 +36,7 @@
 - name: User creation
   user:
     name: "{{ item.username }}"
-    group: "{{ item.username if users_per_user_group else users_default_group }}"
+    group: "{{ item.username if users_per_user_group else item.group if item.group is defined else users_default_group }}"
     groups: "{{ item.groups | default([]) | join(',') }}"
     shell: "{{ item.shell|default(users_default_shell) }}"
     comment: "{{ item.comment|default(item.name) }}"
