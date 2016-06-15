@@ -63,5 +63,5 @@ script:
     && (echo 'User tata was not removed - fail' && exit 1)
     || (echo 'User tata was succesfully removed - pass' && exit 0)
 
-#notifications:
-#  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
