@@ -57,13 +57,6 @@ script:
     && (test $_UID -eq $_GID -a $_GID -eq 10000 && echo 'User toto primary group is toto and gid = uid = 10000 - pass' && exit 0)
     || (echo 'User toto primary group is not toto or gid != 10000 - fail' && exit 1)
 
-  # Check if user titi primary group is grp1.
-  - >
-    id titi;
-    _GID=$(grep "^titi:" /etc/passwd | awk -F":" '{print $4;}')
-    && (test $_GID -eq 20000 && echo 'User titi primary group = grp1 - pass' && exit 0)
-    || (echo 'User titi primary group != grp1 - fail' && exit 1)
-
   # Check if user tata was removed.
   - >
     id tata > /dev/null 2>&1
